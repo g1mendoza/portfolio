@@ -1,0 +1,397 @@
+/* ==========================================================================
+   Giselle Mendoza — Personal Site
+   Aesthetic: Professional (navy, light gray)
+   Same layout and behavior as the original; only the colors and fonts changed.
+========================================================================== */
+
+:root {
+  /* Color palette */
+  --color-white: #ffffff;
+  --color-page: #f1f2f4;        /* light gray page background */
+  --color-gray: #d5d8dd;
+  --color-gray-dark: #5b6270;
+  --color-navy: #1b2a49;        /* main navy */
+  --color-navy-dark: #12203a;
+  --color-navy-mid: #2c4170;    /* hover shade */
+  --color-steel: #6b7fa3;       /* soft blue-gray accent */
+  --color-ice: #c7d2e6;         /* light highlight on navy */
+  --color-text: #1c2230;
+
+  /* Typography */
+  --font-heading: "Life Savers", serif;
+  --font-body: "Lora", Georgia, serif;
+
+  /* Sizes */
+  --text-lg: 1.25rem;
+  --text-xl: clamp(2.25rem, 6vw, 3.75rem);
+
+  /* Spacing */
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+  /* Effects */
+  --radius-soft: 1.5rem;
+  --radius-frame: 55% 45% 52% 48% / 48% 52% 45% 55%;
+  --shadow-soft: 0 12px 32px -14px rgba(18, 32, 58, 0.35);
+
+  --border-ribbon: 3px solid var(--color-navy);
+  --border-thin: 1px solid var(--color-navy);
+}
+
+/* Global */
+* { box-sizing: border-box; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-page);
+  background-image:
+    radial-gradient(circle at 12% 15%, rgba(27, 42, 73, 0.07), transparent 42%),
+    radial-gradient(circle at 88% 80%, rgba(27, 42, 73, 0.08), transparent 45%);
+  background-attachment: fixed;
+  line-height: 1.7;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--color-navy);
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+a {
+  color: var(--color-navy);
+  text-decoration: underline;
+  text-decoration-color: var(--color-steel);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--color-navy-mid); }
+
+/* Keyboard focus indicator (only shows for Tab navigation, not mouse clicks) */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-navy);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Turns off movement for people who have reduced motion turned on */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* Header */
+header {
+  background-color: var(--color-navy);
+  border-block-end: 4px solid var(--color-steel);
+  padding: var(--space-sm) var(--space-lg);
+  display: flex;
+  align-items: center;
+}
+
+header img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+}
+
+/* Pushes the nav to the far right */
+header nav { margin-inline-start: auto; }
+
+header ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-lg);
+  margin: 0;
+  padding: 0;
+}
+
+header a {
+  color: var(--color-page);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  padding-bottom: 2px;
+  border-block-end: 2px dashed transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+/* The link for the page you're on (needs aria-current="page" in the HTML) */
+header a[aria-current="page"] {
+  color: var(--color-ice);
+  border-block-end-color: var(--color-ice);
+}
+
+header a:hover:not([aria-current="page"]) {
+  color: var(--color-ice);
+  border-block-end-color: var(--color-ice);
+}
+
+header a:focus-visible,
+header button:focus-visible,
+footer a:focus-visible {
+  outline-color: var(--color-ice);
+}
+
+/* Hamburger menu button (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-page);
+  cursor: pointer;
+}
+
+/* Phone / small screen layout */
+@media (max-width: 800px) {
+  header { position: relative; padding: var(--space-sm) var(--space-md); }
+
+  .menu-toggle { display: block; }
+
+  header nav {
+    display: none;          /* hidden until jas.js adds the "open" class */
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    z-index: 10;
+    background: var(--color-navy-dark);
+    padding: var(--space-md);
+    border-radius: var(--radius-soft);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-steel);
+  }
+
+  header nav.open { display: block; }
+
+  header nav ul {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}
+
+/* Home page (index.html) — two-column layout */
+#home {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+#home > p {
+  font-size: var(--text-lg);
+  max-width: 42rem;
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+}
+
+#home h1 {
+  color: var(--color-navy);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+#home figure {
+  margin: 0;
+  text-align: center;
+  justify-self: center;
+}
+
+#home figure img {
+  width: min(90%, 560px);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  object-fit: cover;
+  border-radius: var(--radius-frame);
+  box-shadow: var(--shadow-soft);
+  border: var(--border-ribbon);
+  transition: border-radius 0.6s ease;
+}
+
+/* The blob-shaped photo smooths into a rounded rectangle on hover */
+#home figure:hover img { border-radius: var(--radius-soft); }
+
+@media (min-width: 700px) {
+  #home {
+    grid-template-columns: 1fr 2fr;
+    column-gap: var(--space-xl);
+    row-gap: var(--space-md);
+    align-items: start;
+  }
+  #home > p { grid-column: 1; }
+  #home h1 { grid-column: 2; }
+  #home figure { grid-column: 2; }
+}
+
+/* Shared layout for About, Projects, Experience, Contact */
+.page-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.page-section > h1 {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--color-navy);
+  margin: 0 0 var(--space-lg);
+}
+
+/* Photos on the About page */
+.page-section > figure {
+  flex-basis: 100%;
+  margin: 0;
+  text-align: center;
+}
+.page-section > figure img {
+  margin-inline: auto;
+  border-radius: var(--radius-soft);
+  border: var(--border-ribbon);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Cards */
+.card {
+  position: relative;
+  flex: 1 1 100%;
+  background-color: var(--color-white);
+  padding: var(--space-lg);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--color-gray);
+  border-left: 6px solid var(--color-navy);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px -16px rgba(18, 32, 58, 0.4);
+  border-left-color: var(--color-steel);
+}
+
+/* Little gear in the corner of each card */
+.card::before {
+  content: "⚙";
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  color: var(--color-steel);
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.card h2 { font-size: 1.7rem; margin-bottom: 0.5rem; padding-right: 2.5rem; }
+.card h3 { font-size: 1.25rem; margin: 1rem 0 0.25rem; color: var(--color-navy); }
+.card ul, .card ol { padding-left: 1.25rem; margin: 0.75rem 0; }
+.card li { margin-bottom: 0.5rem; }
+.card p { margin: 0.5rem 0 0; }
+.card span { color: var(--color-gray-dark); font-size: 0.9rem; }
+.card img { margin-bottom: var(--space-sm); }
+
+/* Contact form */
+fieldset {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-soft);
+  padding: var(--space-md);
+  flex: 1 1 100%;
+}
+legend {
+  font-family: var(--font-heading);
+  color: var(--color-navy);
+  padding: 0 0.5rem;
+}
+label { display: block; margin-top: 1rem; }
+input, textarea {
+  width: 100%;
+  background: var(--color-page);
+  color: var(--color-text);
+  border: 1px solid var(--color-gray);
+  border-radius: 8px;
+  padding: 0.6rem;
+  font: inherit;
+}
+input:focus, textarea:focus {
+  outline: 2px solid var(--color-navy-mid);
+  background: var(--color-white);
+}
+progress { display: block; width: 100%; margin: 1rem 0; accent-color: var(--color-navy-mid); }
+
+button[type="submit"], dialog button {
+  background: var(--color-navy);
+  color: var(--color-white);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+button[type="submit"]:hover, dialog button:hover { background: var(--color-navy-mid); }
+
+dialog {
+  margin: auto;
+  background: var(--color-white);
+  color: var(--color-text);
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius-soft);
+  padding: var(--space-md);
+}
+dialog::backdrop { background: rgba(18, 32, 58, 0.6); }
+
+/* Footer */
+footer {
+  background-color: var(--color-navy);
+  border-block-start: 4px solid var(--color-steel);
+  color: var(--color-gray);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+footer nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: 0;
+  margin: 0 0 var(--space-sm) 0;
+}
+
+footer nav a {
+  color: var(--color-page);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  border-block-end: 2px dashed transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+footer nav a:hover {
+  color: var(--color-ice);
+  border-block-end-color: var(--color-ice);
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
